@@ -1,0 +1,45 @@
+{% extends 'panel/dash.html' %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="card bg-light mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">Новые клиенты</div>
+            <div class="card-body">
+                <div class="table-responsive-sm">
+                    <table class="table table-striped table-sm">
+                        <tr>
+                            <th>Дата</th>
+                            <th>Имя</th>
+                            <th>Телефон</th>
+                            <th>Почта</th>
+                            <th>Статус</th>
+                        </tr>
+                        {% for c in clients %}
+                        <tr>
+                            <td>{{ c.date_pub }}</td>
+                            <td>{{ c.name }}</td>
+                            <td>{{ c.number }}</td>
+                            <td>{{ c.email }}</td>
+                            {% if c.processed == False %}
+                            <td class="bg-warning font-weight-bold">
+                                <a class="text-dark w-100 font-weight-bold" href="{% url 'clients_complete' c.id %}">Ждет</a>
+                            </td>
+                            {% elif c.processed == True %}
+                            <td class="bg-success">
+                                <a class="text-white w-100 font-weight-bold" href="{% url 'clients_complete' c.id %}">Обработана</a>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

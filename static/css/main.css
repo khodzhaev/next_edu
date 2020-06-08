@@ -1,0 +1,364 @@
+#info-block,
+.act-block,
+.hidden {
+ display:none
+}
+.act,
+.pay-item {
+ font-weight:700
+}
+main {
+ background-image:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url(../img/main.jpg);
+ background-size:cover;
+ background-position:center;
+ height:700px
+}
+.pt-13 {
+ padding-top:150px
+}
+.text-grey {
+ color:#d3d3d3
+}
+h1 {
+ font-size:70px
+}
+h2 {
+ font-size:45px;
+ margin-top:-15px
+}
+.fs-1-4 {
+ font-size:1.3em
+}
+.text-pink {
+ color:#DA0300;
+}
+.btn-danger {
+ background:#DA0300;
+ border-color:#DA0300;
+}
+.btn-danger:hover {
+ background:#C70000;
+ border-color:#C70000;
+}
+.btn-outline-danger {
+ border-color:#DA0300;
+ color:#fff;
+}
+.btn-outline-danger:hover {
+ background:#C70000;
+ border-color:#C70000;
+}
+.line {
+ height:1px;
+ margin:0 auto;
+ background:#ccc;
+ animation:line 5s infinite
+}
+@keyframes line {
+ 0%,
+ 100% {
+  width:150px
+ }
+ 50% {
+  width:500px
+ }
+}
+.collapse-head {
+ position:relative;
+ height:75px;
+ border-radius:7px;
+ background:#fff;
+ margin-bottom:10px
+}
+.collapse-head h3 {
+ padding-top:18px;
+ padding-left:30px;
+ transition:.5s;
+ cursor:pointer
+}
+.badge-danger {
+ margin-left:35px;
+ background:#DA0300;
+ transition:1s
+}
+.collapse-head:hover {
+ top:-2.5px;
+ left:2.5px;
+ font-size:1.9rem
+}
+.programm-course li {
+ margin-top:10px;
+ list-style-type:none;
+ margin-bottom:10px
+}
+.programm-course li:last-child() {
+ margin-bottom:0
+}
+.programm-course li:before {
+ content:"⦁";
+ color:#C09;
+ padding-right:15px
+}
+.collapse-block {
+ padding:15px;
+ border-radius:7px;
+ background:#fff;
+ margin-bottom:5px
+}
+.collapse-head:hover .badge-danger {
+ background:#C70000;
+ cursor:pointer
+}
+.act:before,
+.active:before {
+ content:'';
+ position:absolute;
+ left:10;
+ height:3px;
+ background:#DA0300;
+ bottom:0
+}
+.act {
+ font-size:18px;
+ cursor:pointer;
+ transition:.5s
+}
+.act:before {
+ width:0%;
+ transition:.5s
+}
+.act:hover:before,
+.actives:before {
+ width:85%
+}
+.act:hover,
+.actives {
+ color:#C70000;
+}
+.act-b h3 {
+ margin-top:30px
+}
+.resume {
+ width:100%;
+ padding-bottom:5px;
+ background:#fff;
+ box-shadow:-15px 15px #DA0300;;
+ margin-bottom:15px
+}
+.avatar {
+ background:url(../img/avatar.png) center;
+ background-size:cover;
+ border-radius:50%;
+ margin-top:20px;
+ margin-left:30px;
+ width:125px;
+ height:125px;
+ border:2px solid grey;
+ padding:5px
+}
+.line-2 {
+ background:grey;
+ width:90%
+}
+.img-item-1,
+.img-item-10,
+.img-item-11,
+.img-item-12,
+.img-item-13,
+.img-item-14,
+.img-item-15,
+.img-item-16,
+.img-item-17,
+.img-item-18,
+.img-item-19,
+.img-item-20,
+.img-item-21,
+.img-item-2,
+.img-item-3,
+.img-item-4,
+.img-item-5,
+.img-item-6,
+.img-item-7,
+.img-item-8,
+.img-item-9 {
+ height:90px;
+ width:90px;
+ border-radius:50%;
+ margin:4px;
+ padding:3px
+}
+.img-item-1 {
+ background:url(../img/python.png) center no-repeat #fff
+}
+.img-item-2 {
+ background:url(../img/django.png) center no-repeat #fff
+}
+.img-item-3 {
+ background:url(../img/html.png) center no-repeat #fff
+}
+.img-item-4 {
+ background:url(../img/css.png) center no-repeat #fff
+}
+.img-item-5 {
+ background:url(../img/sass.png) center no-repeat #fff;
+ background-size:cover
+}
+.img-item-6 {
+ background:url(../img/bootstrap.png) center no-repeat #fff
+}
+.img-item-7 {
+ background:url(../img/js.png) center no-repeat #fff
+}
+.img-item-8 {
+ background:url(../img/jquery.png) center no-repeat #fff
+}
+.img-item-9 {
+ background:url(../img/linux.png) center no-repeat #fff
+}
+.img-item-10 {
+ background:url(../img/git.png) center no-repeat #fff
+}
+.img-item-11 {
+ background:url(../img/sqlite.png) center no-repeat #fff
+}
+.img-item-12 {
+ background:url(../img/mysql.png) center no-repeat #fff
+}
+.img-item-13 {
+ background:url(../img/restful.png) center no-repeat #fff
+}
+.img-item-14 {
+ background:url(../img/nginx.png) center no-repeat #fff
+}
+.img-item-15 {
+ background:url(../img/tcp.png) center no-repeat #fff
+}
+.img-item-16 {
+ background:url(../img/photoshop.jpg) center no-repeat #fff;
+ background-size:60px
+}
+.img-item-17 {
+ background:url(../img/atom.png) center no-repeat #fff;
+ background-size:70px
+}
+.img-item-18 {
+ background:url(../img/github.png) center no-repeat #fff;
+ background-size:70px
+}
+.img-item-19 {
+ background:url(../img/nodejs.png) center no-repeat #fff;
+ background-size:70px
+}
+.img-item-20 {
+ background:url(../img/pycharm.png) center no-repeat #fff;
+ background-size:70px
+}
+.img-item-21 {
+ background:url(../img/do.png) center no-repeat #fff;
+ background-size:70px
+}
+.resume h4 {
+ padding-left:15px
+}
+.resume-ul li {
+ list-style-type:none;
+ margin-bottom:10px
+}
+.resume-ul li:before {
+ content:"⦁";
+ color:#DA0300;
+ padding-right:15px
+}
+.pay {
+ background-image:linear-gradient(rgba(100,0,153,.75),rgba(176,0,27,.75)),url(../img/section-pay.jpg);
+ background-size:cover;
+ background-position:center
+}
+.pay-item {
+ color:rgba(247,227,227,1);
+ font-size:1.1rem;
+ text-transform:uppercase
+}
+.pay-icon {
+ color:#fff;
+ font-size:2.1rem
+}
+.collapse-q-head {
+ position:relative;
+ border-radius:3px;
+ background:#000;
+ margin-bottom:10px
+}
+.collapse-q-head:after {
+ content:'ᗐ';
+ font-size:2rem;
+ color:#DA0300;
+ position:absolute;
+ right:15px;
+ top:0
+}
+.collapse-q-head h4 {
+ color:#fff;
+ cursor:pointer;
+ padding:8px 50px 8px 30px
+}
+.collapse-q-block {
+ border-radius:2px;
+ background:#000;
+ text-align:justify;
+ padding:15px;
+ margin-bottom:5px
+}
+.logo {
+ height:45px
+}
+.map {
+ mix-width:100%;
+ height:350px
+}
+@media (max-width:767px) {
+ .badge-danger {
+  display:none
+ }
+}
+@media (max-width:575px) {
+ .ride {
+  width:auto;
+  margin:0 auto
+ }
+}
+@media (max-width:450px) {
+ .main-title {
+  font-size:45px
+ }
+ .line {
+  display:none
+ }
+ .avatar {
+  margin:15px auto 0
+ }
+ .mob-center {
+  text-align:center
+ }
+ .resume-ul {
+  margin-left:0;
+  padding-left:20px
+ }
+}
+.name {
+ color:#DA0300
+}
+#info-block {
+ width:300px;
+ background:#fff;
+ position:absolute;
+ box-shadow:0 0 10px rgba(0,0,0,.5);
+ padding:20px;
+ z-index: 10;
+}
+#info-block p {
+ font-size:13px
+}
+.sh {
+ box-shadow:0px 0px 10px #000
+}

@@ -1,0 +1,255 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="RU-ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Панель управления</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
+    <style>
+        /* Dashboard */
+        #navigator {
+            background-color: #0e0b2b;
+        }
+
+        #navigator > div {
+            position: fixed;
+            background-color: #0e0b2b;
+            max-width: inherit;
+            height: 100vh;
+        }
+
+        #nav-toggle {
+            display: none;
+        }
+
+        .logo {
+            height: 55px
+        }
+
+        .menu-bar {
+            height: 70px
+        }
+
+        #close-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .list-menu {
+            list-style: none;
+            padding-left: 5px;
+        }
+
+        .list-menu li {
+            padding: 15px 0;
+        }
+
+        .list-menu li a {
+            color: #6a7186;
+            text-decoration: none;
+            font-size: 0.95rem;
+
+        }
+
+        .list-menu li a i {
+            padding-right: 9px;
+        }
+
+
+        .main-body {
+            height: 100vh;
+            background-color: #f9fafb;
+        }
+
+        .line {
+            height: 1px;
+            width: 100%;
+            background-color: #18183b;
+        }
+
+        .main-icon {
+            color: #555;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .main-icon:hover {
+            color: #0e0b2b;
+        }
+
+        .main-search {
+            width: 250px;
+            position: relative;
+            margin: 0 7px;
+        }
+
+        .main-search input {
+            width: 100%;
+            border-radius: 20px;
+            background-color: #f3f3f9;
+            border: none;
+        }
+
+        .main-search button {
+            position: absolute;
+            right: 3px;
+            top: 6px;
+            border-radius: 0 10px 10px 0;
+            border: none;
+            color: #666;
+            background: transparent;
+            font-size: 1rem;
+        }
+
+
+        @media screen and (max-width: 575px) {
+
+            #navigator {
+                display: none;
+            }
+
+            #navigator > div {
+                position: absolute;
+                z-index: 2;
+                width: 100%;
+            }
+
+            .menu-bar-list {
+                padding: 0;
+            }
+
+            .main-icon {
+                padding-top: 5px;
+            }
+
+            #close-btn {
+                display: block;
+            }
+
+            #nav-toggle {
+                display: block;
+            }
+
+            .list-menu li a {
+                color: #6a7186;
+                text-decoration: none;
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12" id="navigator">
+            <div class="row">
+                <div class="col-12">
+                    <div class="logo d-flex justify-content-center align-items-center">
+                        <h3 class="text-white pt-2">Education</h3>
+                    </div>
+                    <hr class="bg-white">
+                    <div id='close-btn'><i class="far fa-times-circle"></i></div>
+                </div>
+                <div class="col-12">
+                    <ul class="list-menu pt-3">
+
+                        <li class=""><a
+                                class="text-white {% if request.path == '/admin/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href=""><i class="fas fa-university"></i> Главная</a></li>
+                        <li class=""><a
+                                class="text-white {% if request.path == '/admin/lessons/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href="{% url 'lessons' %}"><i class="fas fa-file-upload"></i> Загрузить урок</a>
+                        </li>
+                        <hr class="hr bg-secondary">
+                        <li class=""><a
+                                class="text-white {% if request.path == '/panel/groups/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href="{% url 'groups' %}"><i class="fas fa-users"></i> Группы</a>
+                        </li>
+                        <li class=""><a
+                                class="text-white {% if request.path == '/panel/students/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href="{% url 'students' %}"><i class="fas fa-user-graduate"></i> Студенты</a></li>
+                        <li class=""><a
+                                class="text-white {% if request.path == '/admin/hws/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href="{% url 'hws' %}"><i class="fas fa-graduation-cap"></i> Домашнее задание</a></li>
+                        <hr class="hr bg-secondary">
+                        <li class=""><a
+                                class="text-white {% if request.path == '/admin/clients/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href="{% url 'clients' %}"><i class="far fa-address-card"></i> Обратный звонок</a>
+                        </li>
+                        <hr class="hr bg-secondary">
+                        <li class=""><a class="text-white btn btn-outline-secondary btn-block"
+                                        href="{% url 'logout' %}"><i class="fas fa-door-open"></i> Выйти</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12" id="main">
+            <div class="menu-bar row shadow p-3 mb-3 bg-white rounded">
+                <div class="menu-bar-list col-12 ">
+                    <div id='nav-toggle'>
+                        <i class="main-icon fa fa-bars pt-2 fa-lg"></i>
+                    </div>
+                    {% for message in messages %}
+                    <div class="container-fluid" id="message">
+                        <div role="alert" class="alert alert-{{ message.tags }} alert-dismissible text-center">
+                            <button type="submit" class="close" data-dismiss="alert"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <strong>
+                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                Что то пошло не так!
+                                {% else %}
+                                {{ message }}
+                                {% endif %}
+                            </strong>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row main-body">
+                <div class="col-12">
+                    <!-- main section -->
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/fontawesome.js' %}"></script>
+<script>
+    function messageHide() {
+       var message = document.querySelector('#message');
+       message.style.display = 'none';
+    }
+
+    setTimeout(messageHide, 3000);
+</script>
+
+</body>
+</html>

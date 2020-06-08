@@ -1,0 +1,19 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404 OOPS!</title>
+</head>
+<body>
+    <div style="width: 600px; margin: 0 auth;">
+        <br><br><br><br><br>
+        <img src="{% static 'img/logo.png' %}" alt="">
+        <h1>Страница не найдена</h1>
+        <a href="{% url 'index' %}" style="color: black: padding: 5px; border: 1px solid black; border-radius: 10px; ">Перейти на главную страницу</a>
+    </div>
+</body>
+</html>

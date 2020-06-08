@@ -1,0 +1,861 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+
+<nav id="dashboard" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}"><img class="logo" src="{% static 'img/logo.png' %}" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item mx-2 font-weight-bold">
+                    <a class="nav-link  text-white " href="#main">Начало</a>
+                </li>
+                <li class="nav-item mx-2 font-weight-bold">
+                    <a class="nav-link  text-white " href="#plan-course">План курса</a>
+                </li>
+                <li class="nav-item mx-2 font-weight-bold">
+                    <a class="nav-link  text-white " href="#resume">Резюме</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item mx-2 font-weight-bold">
+                    <span class="nav-link text-white "><i class="fas fa-phone-alt"></i> 0 707 54-54-54</span>
+                </li>
+                <li class="nav-item mx-2 font-weight-bold">
+                    <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-user-alt"></i> {{ user.username }}</a>
+                </li>
+                {% else %}
+                <li class="nav-item mx-2 font-weight-bold">
+                    <a class="nav-link px-5 text-white btn btn-outline-danger" href="#check"><i class="fas fa-edit"></i>
+                        Записаться</a>
+                </li>
+                <li class="nav-item mx-2 font-weight-bold">
+                    <span class="nav-link text-white "><i class="fab fa-telegram-plane"></i> 0 707 54-54-54</span>
+                </li>
+                <li class="nav-item mx-2 font-weight-bold">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#signin"><i
+                            class="fas fa-sign-in-alt"></i> Войти</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav><br><br>
+<!-- Inquiry Modal -->
+<div class="modal fade" id="signin" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="inquiryModalLabel">Добро пожаловать</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Логин</label>
+                        <input type="text" name="username" class="form-control">
+                        <small id="emailHelp" class="form-text text-muted">Введите логин что бы авторизоваться</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Пароль</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <input type="submit" class="btn btn-block btn-success" value="Войти">
+                </form>
+                <hr>
+                <!--<a href="" class="btn btn-block btn-warning" data-dismiss="modal">Забыл пароль</a>-->
+                <a href="" class="btn btn-block btn-dark" data-dismiss="modal">Закрыть</a>
+            </div>
+        </div>
+    </div>
+</div>
+<main class="pt-13" id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <span class="px-3 py-1 rounded-pill text-white border"> Профессия </span>
+                <br><br>
+                <h1 class="main-title text-white font-weight-bold">Full-stack разработчик</h1>
+                <hr align="left" width="196px" style="background: white;">
+                <h2 class="text-white">за 5 месяцев</h2><br>
+                <ul class="text-grey font-weight-bold">
+                    <li>Научим программировать на JavaScript и Python</li>
+                    <li>13 готовых проектов в портфолио по итогам обучения</li>
+                    <li>Станете уверенным пользователем ОС Линукс</li>
+                </ul>
+                <br>
+                <div class="row">
+                    <div class='col-6'>
+                        <a href="#check" class="btn btn-lg btn-danger w-100 mb-3"><i class="fas fa-edit"></i> Записаться</a>
+                    </div>
+                    <div class='col-6'>
+                        <a href="#plan-course" class="btn btn-lg btn-outline-secondary w-100 mb-3 text-white"><i
+                                class="fab fa-buffer"></i> Программа</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<section class="">
+    <div class="container py-5">
+        <div class="animated fadeInUp delay-1s row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">Когда</p>
+                <p class="font-weight-bold fs-1-4">9 марта 2020 - 9 июня 2020</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">Формат обучения</p>
+                <p class="font-weight-bold fs-1-4">Онлайн и оффлайн, по вечерам и практические задания</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">Результат</p>
+                <p class="font-weight-bold fs-1-4">Новая профессия, портфолио, новые знакомства в группе</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">Сертификат</p>
+                <p class="font-weight-bold fs-1-4">Сертификат о профессиональной переподготовке</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="">
+    <div class="line"></div>
+    <div class="container py-5">
+        <div class="sec-2 hidden row">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">JavaScript и Python</p>
+                <p class="font-weight-bold fs-1-4">научим программировать с нуля на самых популярных языках</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">85+ часов</p>
+                <p class="font-weight-bold fs-1-4">практики и интересные задачи с ведущими разработчиками</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">12 технологий</p>
+                <p class="font-weight-bold fs-1-4">изучите и станете junior-разработчиком, даже если никогда не
+                    программировали</p>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <p class="text-pink text-uppercase font-weight-bold">Средняя зарплата</p>
+                <p class="font-weight-bold fs-1-4">110 000 сом средняя зарплата веб-разработчика (по данным hh.ru)</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="">
+    <div class="line"></div>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <h2 class="font-weight-bold">Ваш личный кабинет</h2>
+                <p class="lead  text-justify">Это ваш аккаунт, который вы получаете после регистрации на курс. Как
+                    только вам предоставят доступ к учебной программе, в личном кабинете появятся расписание занятий,
+                    записи всех прошедших вебинаров, домашние
+                    задания, библиотека полезных материалов, важные уведомления и рейтинг студентов. Вы всегда сможете
+                    вернуться в личный кабинет к материалам курса, как к базе знаний.</p>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12"></div>
+        </div>
+    </div>
+</section>
+<section class="">
+    <div class="line"></div>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 col-sm-12"></div>
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <h2 class="font-weight-bold">Насколько популярны JavaScript и Python <a
+                        href="https://insights.stackoverflow.com/survey/2019#most-popular-technologies" target="_blank"
+                        class="px-3 py-1 btn btn-danger"> Прочитать </a>
+                </h2>
+                <p class="lead text-justify"> JavaScript и Python входят в топ-5 самых востребованных языков
+                    программирования (по данным Stack Overflow). JavaScript используется везде и много лет подряд
+                    остаётся самым распространённым языком
+                    программирования. На Python сделаны YouTube, Google search, Dropbox, Instagram, Reddit, Pinterest,
+                    Quora, Yahoo maps, Spotify, наш сайт и др. После прохождения курса вы сможете уверенно работать и с
+                    фронтендом, и с бэкендом веб-сервисов,
+                    что станет вашим конкурентным преимуществом на фоне других junior-разработчиков.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="" id="plan-course">
+    <div class="line"></div>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold text-center">Программа курса</h2>
+                <p class="lead text-center">Программа строится от простого к сложному и идёт 5 месяцев. Этого времени
+                    как раз достаточно, чтобы погрузиться в профессию и стать уверенным junior-специалистом. Вы освоите
+                    востребованные навыки
+                    веб-разработчика и соберёте портфолио проектов.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="p-1 text-white w-100" data-toggle="collapse" href="#c100" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Первый месяц <span class="badge badge-danger text-uppercase">html, css и photoshop</span>
+                        </a>
+                    </div>
+                    <div class="collapse" id="c100">
+                        <div class="card-body">
+                            <ul class="programm-course text-uppercse">
+                                <li>Создание и открытие HTML-страниц. DOCTYPE и Базовый Макет</li>
+                                <li>Мета-Теги и Поисковые Системы. Заголовки, Абзацы & Типография</li>
+                                <li>Ссылки, Изображения И Атрибуты. Списки И Таблицы</li>
+                                <li>Формы И Ввод. Блочные И Встроенные Элементы Уровня</li>
+                                <li>Divs & Spans, Classes & Ids. HTML5 семантика решение и Wrap</li>
+                                <li>Реализация CSS, Основные CSS селекторы, Введение В Инструменты Разработки,</li>
+                                <li>Шрифты в CSS, Фоны И Границы, Float, Кнопки</li>
+                                <li>Стиль Меню Навигации, Рядный, Блок И Встроенный Блок Индикации</li>
+                                <li>Вызов Стиля Формы, Решение В Стиле Формы</li>
+                                <li>Инструменты Photoshop для Верстки</li>
+                                <li>Первый Макет (Веб-сайт гостиницы)</li>
+                                <li>Адаптивная верстка</li>
+                                <li>Что такое FlexBox</li>
+                                <li>Второй Макет (уровень легкий)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="p-1 text-white w-100" data-toggle="collapse" href="#c200" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Второй месяц <span
+                                class="badge badge-danger text-uppercase">Bootstrap и post production</span>
+                        </a>
+                    </div>
+                    <div class="collapse" id="c200">
+                        <div class="card-body">
+                            <ul class="programm-course text-uppercse">
+                                <li>Целевые Селекторы, nth-дочерние псевдо селекторы, BEFORE и AFTER псевдо селекторов
+                                </li>
+                                <li>работа с тенями, Переменные в CSS (свойства), Анимация Ключевого, CSS-переходы</li>
+                                <li>Создадим гамбургер меню</li>
+                                <li>Третий макет (уровень Легкий)</li>
+                                <li>Что такое grid</li>
+                                <li>Четвертый Макет (новостной портал)</li>
+                                <li>Что такое Хостинг, публекуем первый сайт</li>
+                                <li>Изучаем технологию Sass</li>
+                                <li>Пятый макет (уровень Средний)</li>
+                                <li>Наконец то Bootstrap</li>
+                                <li>Шестой макет (уровень Средний)</li>
+                                <li>Седьмой макет (уровень Средний)</li>
+                                <li>Карусель, дополнительные утилиты</li>
+                                <li>Восьмой макет (уровень Средний)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="p-1 text-white w-100" data-toggle="collapse" href="#c300" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Третий месяц <span
+                                class="badge badge-danger text-uppercase">Javascript, Jquery и Linux</span>
+                        </a>
+                    </div>
+                    <div class="collapse" id="c300">
+                        <div class="card-body">
+                            <ul class="programm-course text-uppercse">
+                                <li>Карусель, дополнительные утилиты</li>
+                                <li>Восьмой макет (уровень Средний)</li>
+                                <li>Девятый макет (уровень Сложный) Панель управления</li>
+                                <li>Десятый макет (уровень Сложный) интерактивный Портфолио</li>
+                                <li>Знакомство с JavaScript</li>
+                                <li>Подключение JS к странице и переменные, Классификация типов данных в JavaScript</li>
+                                <li>Простое общение с пользователем, Операторы в JS, условия, циклы</li>
+                                <li>Функции, объекты, Массивы и псевдомассивы</li>
+                                <li>Объектно Ориентированное Программирование (ООП), Получение элементов со страницы
+                                </li>
+                                <li>Библеотека Jquery, что это, подключаем.ю</li>
+                                <li>Селекторы и действия</li>
+                                <li>Одинацатый макет пишем игру крестики</li>
+                                <li>Двенадцатый макет пишем игру музыкальный</li>
+                                <li>Что такое Линукс, устанавливаем ОС Линукс</li>
+                                <li>Рабочая среда, баш комманды</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="p-1 text-white w-100" data-toggle="collapse" href="#c400" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Четвертый месяц <span class="badge badge-danger text-uppercase">Python и Git</span>
+                        </a>
+                    </div>
+                    <div class="collapse" id="c400">
+                        <div class="card-body">
+
+                            <ul class="programm-course text-uppercse">
+                                <li>Работа с терминалом линукс, работа с файлами, Пользователи и группы</li>
+                                <li>Сетевые комманды, скачивание и установка прогррам, помощь получение сертификата LPI
+                                    Linux
+                                    Essentials 010-150
+                                </li>
+                                <li>Установка python, работа по pep8, первые переменные</li>
+                                <li>Строки, цифры, все типы данных</li>
+                                <li>Библеотеки без них никак</li>
+                                <li>Циклы и классы</li>
+                                <li>Работа с файлами, практические задании</li>
+                                <li>Знакомство с Git, push and pull</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="p-1 fs-1 text-white w-100" data-toggle="collapse" href="#c500" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Пятый месяц <span
+                                class="badge badge-danger text-uppercase">Django, sql, ssh, nginx и наш сервер</span>
+                        </a>
+                    </div>
+                    <div class="collapse" id="c500">
+                        <div class="card-body">
+                            <ul class="programm-course text-uppercse">
+                                <li>Знакомство с фреймворком Django</li>
+                                <li>Первый проект, и вирутальное окружение</li>
+                                <li>Рендеринг страницы, работа с jinja2</li>
+                                <li>Модели, миграции, панель админа</li>
+                                <li>Тринадцатый макет, (уровень Профессиональный) плащадка для риелторов по сдачи
+                                    квартир
+                                </li>
+                                <li>Создаем сервер, Подключение по SSH, заливаем проект</li>
+                                <li>Настройка nginx, подключам домен, запускае в продакшен</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="">
+    <div class="line"></div>
+    <div class="container py-5">
+        <h2 class="font-weight-bold">Кому подойдёт этот курс</h2><br><br>
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-4">
+                <p class="act actives" onclick="act(this)" id="act-b-1"> Тем, кто хочет освоить программирование </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-4">
+                <p class="act" onclick="act(this)" id="act-b-2"> Тем, кто пробовал кодить сам </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-4">
+                <p class="act" onclick="act(this)" id="act-b-3"> Тем, кто хочет сменить профессию </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12">
+                <div class="act-b " id="act-b-1b">
+                    <h3>Тем, кто хочет освоить программирование</h3>
+                    <p class="lead">Даже если вы никогда не программировали и совсем не гуру математики, вы
+                        сориентируетесь в новой области и получите необходимые навыки для успешного старта в
+                        профессии.</p>
+                </div>
+                <div class="act-b hidden" id="act-b-2b">
+                    <h3>Тем, кто пробовал кодить сам</h3>
+                    <p class="lead">Если вы начинали изучать программирование, но пока не добились результатов,
+                        попробуйте снова, но уже под руководством преподавателя!</p>
+                </div>
+                <div class="act-b hidden" id="act-b-3b">
+                    <h3>Тем, кто хочет сменить профессию</h3>
+                    <p class="lead">Онлайн-курс — отличная возможность освоить новую сферу. Вы получите
+                        структурированную информацию, которая станет базой для старта, готовое портфолио и помощь в
+                        дальнейшем трудоустройстве.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-dark text-white" id="resume">
+    <div class="line"></div>
+    <div class="container py-5">
+        <h2 class="text-white font-weight-bold">Ваше резюме после обучения</h2><br><br>
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="resume">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="avatar"></div>
+                        </div>
+                        <div class="col-lg-8 col-md-4 col-sm-12 col-xs-12"><br>
+                            <p class="mob-center font-weight-bold text-secondary">Петров Петр Петрович</p>
+                            <h3 class="mob-center avatar-title text-secondary">Веб Разработчик</h3>
+                            <p class="mob-center text-secondary">Желаемая зарплата 80000 сом</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4 class="text-dark"> Готовые проекты</h4><br>
+                    <ul class="text-dark resume-ul font-weight-bold">
+                        <li>Свёрстанный веб-страницы более 13 макетов</li>
+                        <li>Интернет-магазин с системой лояльности</li>
+                        <li>Разрешение конфликта версий кода веб-сайта на GitHub</li>
+                        <li>Онлайн-игра «Кости»</li>
+                        <li>Онлайн-игра «Музыкальный инструмент»</li>
+                        <li>Веб-приложение по продаже недвижимости</li>
+                        <li>Поднятие сервера, настройки</li>
+                    </ul>
+                    <hr>
+                    <h4 class="text-dark"> Ключевые навыки</h4><br>
+                    <ul class="text-dark resume-ul font-weight-bold">
+                        <li>Вёрстка веб-страниц: HTML, CSS</li>
+                        <li>Адаптивная и мобильная верстка</li>
+                        <li>Контроль изменений кода проекта, работа на GitHub</li>
+                        <li>Решение задач с использованием JavaScript</li>
+                        <li>Использование библиотеки Django и Jqury</li>
+                        <li>Применение принципов клиент-серверного взаимодействия</li>
+                        <li>Применение навыков по SQL</li>
+                        <li>Бэкэнд на Python</li>
+                        <li>Понимание NGINX, DNS, SSH, SSL и работа с VDS</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <h3> Инструменты, которые вы освоите </h3>
+                <hr class="line-2" align="left">
+                <div class="row">
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-1"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-2"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-3"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-4"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-5"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-6"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-7"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-8"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-9"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-10"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-11"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-4 skill-items">
+                        <div class="skill-img img-item-12"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-13"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-14"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-15"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-16"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-17"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-18"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-19"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-20"></div>
+                    </div>
+                    <div class="ride col-lg-3 col-md-3 col-sm-4 col-xs-auto skill-items">
+                        <div class="skill-img img-item-21"></div>
+                    </div>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Python</h4>
+                    <p class="text-weight-bold text-justify">
+                        Высокоуровневый язык программирования общего назначения, ориентированный на повышение
+                        производительности разработчика и читаемости кода. Синтаксис Python минималистичен, но
+                        стандартная библиотека включает большой объём полезных функций.
+                    </p>
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Django</h4>
+                    <p class="text-weight-bold text-justify">
+                        Свободный фреймворк для веб-приложений на языке Python, использующий шаблон проектирования MVC.
+                        Django используется в таких крупных сайтах, как Mozilla, YouTube, Google, Instagram,
+                        Pinterest. </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">HTML5</h4>
+                    <p class="text-weight-bold text-justify">
+                        Язык для структурирования и представления содержимого интернета. В HTML версии 5 улучшена
+                        поддержка мультимедиа-технологий, при этом сохранена обратная совместимость, читаемость кода для
+                        человека и
+                        простота анализа для парсеров.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">CSS</h4>
+                    <p class="text-weight-bold text-justify">Язык для описания внешнего вида страниц сайта. Возможности
+                        CSS3 — создание анимации без использования JavaScript, поддержка градиентов, теней и многое
+                        другое.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Sass</h4>
+                    <p class="text-weight-bold text-justify">Модуль, включенный в Haml. Sass — это метаязык на основе
+                        CSS, предназначенный для увеличения уровня абстракции CSS кода и упрощения файлов каскадных
+                        таблиц стилей. Язык Sass имеет два синтаксиса: sass — отличается отсутствием фигурных скобок, в
+                        нём вложенные элементы реализованы с помощью отступов;
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Bootstrap</h4>
+                    <p class="text-weight-bold text-justify">Свободный набор инструментов для создания сайтов и
+                        веб-приложений. Включает в себя HTML- и CSS-шаблоны оформления для типографики, веб-форм,
+                        кнопок, меток, блоков навигации и прочих компонентов веб-интерфейса, включая
+                        JavaScript-расширения.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">JavaScript</h4>
+                    <p class="text-weight-bold text-justify">Самый популярный язык программирования для разработки
+                        веб-приложений. Единственный язык, который поддерживается на любых устройствах и платформах.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">JQuery</h4>
+                    <p class="text-weight-bold text-justify">Набор функций JavaScript, фокусирующийся на взаимодействии
+                        JavaScript и HTML. Библиотека jQuery помогает легко получать доступ к любому элементу DOM,
+                        обращаться к атрибутам и содержимому элементов DOM, манипулировать ими. Также библиотека jQuery
+                        предоставляет удобный API для работы с AJAX.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Linux</h4>
+                    <p class="text-weight-bold text-justify">Семейство Unix-подобных операционных систем на базе ядра
+                        Linux, включающих тот или иной набор утилит и программ проекта GNU, и, возможно, другие
+                        компоненты.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Git</h4>
+                    <p class="text-weight-bold text-justify">Распределённая система управления версиями. Проект был
+                        создан Линусом Торвальдсом для управления разработкой ядра Linux, первая версия выпущена 7
+                        апреля 2005 года. На сегодняшний день его поддерживает Джунио Хамано.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Sqlite</h4>
+                    <p class="text-weight-bold text-justify">Компактная встраиваемая СУБД. Исходный код библиотеки
+                        передан в общественное достояние. В 2005 году проект получил награду Google-O’Reilly Open Source
+                        Awards.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">MySql</h4>
+                    <p class="text-weight-bold text-justify">Свободная реляционная система управления базами данных.
+                        Разработку и поддержку MySQL осуществляет корпорация Oracle, получившая права на торговую марку
+                        вместе с поглощённой Sun Microsystems, которая ранее приобрела шведскую компанию MySQL AB.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">RESTful</h4>
+                    <p class="text-weight-bold text-justify">Архитектурный стиль взаимодействия компонентов
+                        распределённого приложения в сети. REST представляет собой согласованный набор ограничений,
+                        учитываемых при проектировании распределённой гипермедиа-системы. В определённых случаях это
+                        приводит к повышению производительности и упрощению архитектуры.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">NGINX</h4>
+                    <p class="text-weight-bold text-justify">Веб-сервер и почтовый прокси-сервер, работающий на
+                        Unix-подобных операционных системах. Начиная с версии 0.7.52 появилась экспериментальная
+                        бинарная сборка под Microsoft Windows. Игорь Сысоев начал разработку в 2002 году. Осенью 2004
+                        года вышел первый публично доступный релиз.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">TCP/IP</h4>
+                    <p class="text-weight-bold text-justify">Один из основных протоколов передачи данных интернета,
+                        предназначенный для управления передачей данных. В стеке протоколов TCP/IP выполняет функции
+                        транспортного уровня модели OSI.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Photoshop</h4>
+                    <p class="text-weight-bold text-justify">
+                        Многофункциональный графический редактор, разработанный и распространяемый фирмой Adobe Systems.
+                        В основном работает с растровыми изображениями, однако имеет некоторые векторные инструменты.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Atom</h4>
+                    <p class="text-weight-bold text-justify">
+                        Бесплатный текстовый редактор с открытым исходным кодом для Linux, macOS, Windows с поддержкой
+                        плагинов, написанных на Node.js, и встраиваемых под управлением Git. Большинство плагинов имеют
+                        статус свободного программного обеспечения, разрабатываются и поддерживаются сообществом.
+                    </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Github</h4>
+                    <p class="text-weight-bold text-justify">
+                        Крупнейший веб-сервис для хостинга IT-проектов и их совместной разработки. Веб-сервис основан на
+                        системе контроля версий Git и разработан на Ruby on Rails и Erlang компанией GitHub, Inc. </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">NodeJS</h4>
+                    <p class="text-weight-bold text-justify">
+                        Программная платформа, основанная на движке V8, превращающая JavaScript из
+                        узкоспециализированного языка в язык общего назначения. </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">PyCharm</h4>
+                    <p class="text-weight-bold text-justify">
+                        Интегрированная среда разработки для языка программирования Python. Предоставляет средства для
+                        анализа кода, графический отладчик, инструмент для запуска юнит-тестов и поддерживает
+                        веб-разработку на Django. PyCharm разработана компанией JetBrains на основе IntelliJ IDEA. </p>
+                </div>
+                <div class="skill-bl"><br>
+                    <h4 class="text-white">Digital Ocean</h4>
+                    <p class="text-weight-bold text-justify">
+                        Американский провайдер облачных инфраструктур, с главным офисом в Нью-Йорке и с центрами
+                        обработки данных по всему миру.</div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="pay" id="check">
+    <div class="container py-5">
+        <h2 class="text-white font-weight-bold">Оплатите сразу или получите консультацию</h2><br><br>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <p class="pay-item">По частям</p>
+                <h2 class="text-white">4 999 сом / мес</h2>
+                <br>
+                <p class="pay-item">Одним платежем <br><span
+                        class="badge badge-warning">скидка 12%, эконом 2500 сомов</span></p>
+                <h2 class="text-white">22 000 сом</h2><br>
+                <div class="row">
+                    <div class="col-1">
+                        <i class="pay-icon fas fa-history"></i>
+                    </div>
+                    <div class="col-auto">
+                        <p class="pay-item">Есть еще вопросы?</p>
+                        <p class="text-white">Звоните нам — 0 (707) 54-54-54</p>
+                        <p class="text-white">Пишите нам — kh.spb@mail.ru</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="card text-center">
+                    <div class="card-header"> Заполните форму</div>
+                    <div class="card-body">
+                        {% include '_partials/_alerts.html' %}
+                        <form method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="name" required class="form-control"
+                                       placeholder="Петров Петр Петрович">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" required class="form-control"
+                                       placeholder="kh.spb@mail.ru">
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="number" required class="form-control"
+                                       placeholder="0707545454">
+                            </div>
+                            <input type="submit" value="Записаться" class="btn btn-block btn-danger text-white">
+                        </form>
+                    </div>
+                    <div class="card-footer text-muted"> Уже есть аккаунт? <a href="#" data-toggle="modal"
+                                                                              data-target="#signin">Вход</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="">
+    <div class="container py-5">
+        <h2 class="font-weight-bold">Остались вопросы?</h2><br>
+        <!--<div class="map my-2">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d758.3665563531753!2d72.82099182924178!3d40.50918499870965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDMwJzMzLjEiTiA3MsKwNDknMTcuNSJF!5e0!3m2!1sru!2skg!4v1582632755604!5m2!1sru!2skg" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+      </div>-->
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="text-white w-100" data-toggle="collapse" href="#q100" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Почему мне стоит выбрать профессию веб-разработчика?
+                        </a>
+                    </div>
+                    <div class="collapse" id="q100">
+                        <div class="card-body">
+                            <p class="lead"> Создание сайтов не требует такого огромного количества ресурсов, как,
+                                например, создание приложений для персональных компьютеров. Но при этом сайты решают
+                                повседневные задачи тысяч и тысяч пользователей. Освоив
+                                веб-разработку, вы сможете сами решать, будете ли вы работать самостоятельно или в
+                                небольшой
+                                команде, в офисе или удалённо, создавать простые информационные сайты или полноценные
+                                веб-приложения, а возможно, вы решите создать собственный
+                                веб-сервис и заниматься его поддержкой </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="text-white w-100" data-toggle="collapse" href="#q200" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Подойдёт ли мне эта профессия?
+                        </a>
+                    </div>
+                    <div class="collapse" id="q200">
+                        <div class="card-body">
+                            <p class="lead"> Это профессия позволит научиться программировать с нуля. Вы изучите
+                                HTML, CSS, JavaScript, Python, это основа для работы frontend- и backend-разработчика.
+                                На выходе
+                                вы сможете сами разработать веб-приложение
+                                или сайт, пойти на стажировку или на работу junior-разработчиком. Эта профессия также
+                                поможет
+                                сориентироваться в ИТ-сфере и выбрать дальнейшее направление специализации. </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="text-white w-100" data-toggle="collapse" href="#q300" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Решаются ли на курсе реальные задачи? </a>
+                    </div>
+                    <div class="collapse" id="q300">
+                        <div class="card-body">
+                            <p class="lead"> Вы будете решать только реальные задачи, которые готовят практикующие
+                                разработчики. По итогам каждого вебинара вам предстоит решить практические задачи на
+                                отработку
+                                полученных навыков. При этом большая часть
+                                задач представляет собой фрагмент из реального проекта. По итогам каждого курса вам
+                                предстоит
+                                выполнить полноценный проект по разработке веб-приложения. Наконец, в финале профессии
+                                вы
+                                сделаете еще один большой проект, который обобщит
+                                навыки по курсам. Итого вы добавите 12-13 реальных проектов в ваше портфолио. </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="text-white w-100" data-toggle="collapse" href="#q400" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Будет ли у меня наставник во время обучения на курсе? </a>
+                    </div>
+                    <div class="collapse" id="q400">
+                        <div class="card-body">
+                            <p class="lead"> Обязательно! Один наставник хорошо, а команда из десяти ассистентов и
+                        тренеров — лучше. В процессе обучения вы сможете задавать любые вопросы по темам курса, условиям
+                        домашних задач и даже по тому, как решать
+                        эти задачи. Вы сможете обсуждать решения с экспертами и другими студентами онлайн. </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="text-white w-100" data-toggle="collapse" href="#q500" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Что делать, если я пропустил занятие?</a>
+                    </div>
+                    <div class="collapse" id="q500">
+                        <div class="card-body">
+                            <p class="lead"> Просто посмотрите занятие в записи. Записи всех прошедших занятий
+                        доступны в любое время в личном кабинете. Если у вас появятся вопросы по занятию, которое вы
+                        пропустили, всегда можно задать их преподавателю. </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card bg-light mb-3">
+                    <div class="bg-dark card-header d-flex justify-content-between align-items-center">
+                        <a class="text-white w-100" data-toggle="collapse" href="#q600" role="button"
+                           aria-expanded="false"
+                           aria-controls="collapseExample">
+                            Как, когда и в какое время я буду учиться?</a>
+                    </div>
+                    <div class="collapse" id="q600">
+                        <div class="card-body">
+                            <p class="lead"> Обучение проходит оффлайн и онлайн в формате вебинаров 3 раза в неделю в
+                        вечернее время (по Ошскому времени). Если вы пропустили занятие, то всегда можете посмотреть его
+                        в записи. Как только вы получите доступ
+                        к курсу, в вашем личном кабинете появится расписание занятий, записи всех прошедших вебинаров,
+                        домашние задания, библиотека полезных материалов, важные уведомления и рейтинг студентов. Также
+                        вы сможете общаться с другими студентами и
+                        вашими преподавателями. </p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-dark text-white">
+    <div class="container d-flex justify-content-center">
+        <span align='center'>it.next.edu.kg 2020 <a href="https://instagram.com/next.osh" class='text-white'><i
+                class="fab fa-instagram"></i></a></span>
+    </div>
+</section>
+
+{% endblock %}
