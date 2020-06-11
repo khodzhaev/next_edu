@@ -6,6 +6,7 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
 
     # Functions
+    path('delete_self_hws/<int:id>/', views.delete_self_hws, name="delete_self_hws"),
     path('upload_hws/', views.upload_hws, name="upload_hws"),
     path('contact/', views.contact, name="contact"),
 

@@ -4,8 +4,8 @@ from django.contrib import messages
 from django.contrib import auth
 
 from .models import Clients
-from panel.models import Group, Lesson, Student,Homework
-
+from panel.models import Group, Lesson, Student, Homework
+import os
 
 ########################################################
 def index(requests):
@@ -15,8 +15,10 @@ def index(requests):
 @login_required(login_url='index')
 def dashboard(requests):
     lessons = Lesson.objects.filter(group=requests.user.student.group)
+    hws = Homework.objects.filter(student=Student.objects.get(user_id=requests.user.id))
     context = {
         'lessons': lessons,
+        'hws': hws,
     }
     return render(requests, 'pages/dashboard.html', context)
 
@@ -34,6 +36,18 @@ def upload_hws(request):
         messages.success(request, 'Успешно отправленно')
         return redirect('dashboard')
     messages.error(request, 'Что то пошло не так, не загрузилась')
+    return redirect('dashboard')
+
+
+@login_required
+def delete_self_hws(requests, id):
+    hws = Homework.objects.get(
+        id=id,
+        student=Student.objects.get(user_id=requests.user.id),
+    )
+    os.system('rm {}'.format(hws.upload.path))
+    hws.delete()
+    messages.success(requests, 'Успешна удалена')
     return redirect('dashboard')
 
 
