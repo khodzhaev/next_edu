@@ -76,3 +76,4 @@ class Homework(models.Model):
         verbose_name = 'Домашка'
         verbose_name_plural = 'Домашки'
         ordering = ('-date_pub',)
+

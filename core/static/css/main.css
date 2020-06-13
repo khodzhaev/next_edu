@@ -267,7 +267,8 @@ h2 {
 }
 
 .img-item-12 {
-    background: url(../img/mysql.png) center no-repeat #fff
+    background: url(../img/postgre.png) center no-repeat #fff;
+    background-size: 70%;
 }
 
 .img-item-13 {

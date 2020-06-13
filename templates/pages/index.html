@@ -110,7 +110,8 @@
         <div class="animated fadeInUp delay-1s row">
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <p class="text-pink text-uppercase font-weight-bold">Когда</p>
-                <p class="font-weight-bold fs-1-4">8 июня 2020 <span class="bg-warning">Поздняя регистрация доступна</span></p>
+                <p class="font-weight-bold fs-1-4">8 июня 2020 <span
+                        class="bg-warning">Поздняя регистрация доступна</span></p>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <p class="text-pink text-uppercase font-weight-bold">Формат обучения</p>
@@ -590,10 +591,8 @@
                     </p>
                 </div>
                 <div class="skill-bl"><br>
-                    <h4 class="text-white">MySql</h4>
-                    <p class="text-weight-bold text-justify">Свободная реляционная система управления базами данных.
-                        Разработку и поддержку MySQL осуществляет корпорация Oracle, получившая права на торговую марку
-                        вместе с поглощённой Sun Microsystems, которая ранее приобрела шведскую компанию MySQL AB.
+                    <h4 class="text-white">PostgreSql</h4>
+                    <p class="text-weight-bold text-justify">свободная объектно-реляционная система управления базами данных. Существует в реализациях для множества UNIX-подобных платформ, включая AIX, различные BSD-системы, HP-UX, IRIX, Linux, macOS, Solaris/OpenSolaris, Tru64, QNX, а также для Microsoft Windows.
                     </p>
                 </div>
                 <div class="skill-bl"><br>
@@ -707,22 +706,39 @@
                             <input type="submit" value="Записаться" class="btn btn-block btn-danger text-white">
                         </form>
                     </div>
+
+                    {% if user.is_authenticated %}
+                    <div class="card-footer">
+                        Войти:
+                        <a class="btn btn-success" href="{% url 'dashboard' %}"><i class="fas fa-user-alt"></i>
+                            {{ user.username }}</a>
+                    </div>
+                    {% else %}
                     <div class="card-footer text-muted"> Уже есть аккаунт? <a href="#" data-toggle="modal"
                                                                               data-target="#signin">Вход</a>
                     </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<section class="bg-dark">
+    <div class="container py-5">
+            <h2 class="text-white font-weight-bold">Где мы</h2><br>
+        <div class="map w-100">
+            <iframe class="w-100"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d758.3665563531753!2d72.82099182924178!3d40.50918499870965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDMwJzMzLjEiTiA3MsKwNDknMTcuNSJF!5e0!3m2!1sru!2skg!4v1582632755604!5m2!1sru!2skg"
+                    frameborder="0" height="350" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</section>
 
 <section class="">
     <div class="container py-5">
         <h2 class="font-weight-bold">Остались вопросы?</h2><br>
-        <!--<div class="map my-2">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d758.3665563531753!2d72.82099182924178!3d40.50918499870965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDMwJzMzLjEiTiA3MsKwNDknMTcuNSJF!5e0!3m2!1sru!2skg!4v1582632755604!5m2!1sru!2skg" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-      </div>-->
         <div class="row">
             <div class="col-12">
                 <div class="card bg-light mb-3">
@@ -801,9 +817,10 @@
                     <div class="collapse" id="q400">
                         <div class="card-body">
                             <p class="lead"> Обязательно! Один наставник хорошо, а команда из десяти ассистентов и
-                        тренеров — лучше. В процессе обучения вы сможете задавать любые вопросы по темам курса, условиям
-                        домашних задач и даже по тому, как решать
-                        эти задачи. Вы сможете обсуждать решения с экспертами и другими студентами онлайн. </p>
+                                тренеров — лучше. В процессе обучения вы сможете задавать любые вопросы по темам курса,
+                                условиям
+                                домашних задач и даже по тому, как решать
+                                эти задачи. Вы сможете обсуждать решения с экспертами и другими студентами онлайн. </p>
                         </div>
                     </div>
 
@@ -818,8 +835,9 @@
                     <div class="collapse" id="q500">
                         <div class="card-body">
                             <p class="lead"> Просто посмотрите занятие в записи. Записи всех прошедших занятий
-                        доступны в любое время в личном кабинете. Если у вас появятся вопросы по занятию, которое вы
-                        пропустили, всегда можно задать их преподавателю. </p>
+                                доступны в любое время в личном кабинете. Если у вас появятся вопросы по занятию,
+                                которое вы
+                                пропустили, всегда можно задать их преподавателю. </p>
                         </div>
                     </div>
 
@@ -834,17 +852,19 @@
                     <div class="collapse" id="q600">
                         <div class="card-body">
                             <p class="lead"> Обучение проходит оффлайн и онлайн в формате вебинаров 3 раза в неделю в
-                        вечернее время (по Ошскому времени). Если вы пропустили занятие, то всегда можете посмотреть его
-                        в записи. Как только вы получите доступ
-                        к курсу, в вашем личном кабинете появится расписание занятий, записи всех прошедших вебинаров,
-                        домашние задания, библиотека полезных материалов, важные уведомления и рейтинг студентов. Также
-                        вы сможете общаться с другими студентами и
-                        вашими преподавателями. </p>
+                                вечернее время (по Ошскому времени). Если вы пропустили занятие, то всегда можете
+                                посмотреть его
+                                в записи. Как только вы получите доступ
+                                к курсу, в вашем личном кабинете появится расписание занятий, записи всех прошедших
+                                вебинаров,
+                                домашние задания, библиотека полезных материалов, важные уведомления и рейтинг
+                                студентов. Также
+                                вы сможете общаться с другими студентами и
+                                вашими преподавателями. </p>
                         </div>
                     </div>
 
                 </div>
-
 
 
             </div>
