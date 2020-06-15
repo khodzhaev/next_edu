@@ -1,0 +1,55 @@
+{% extends 'panel/dash.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card bg-light mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>{{ test.title }}</h5>
+                <a data-toggle="modal"
+                   data-target="#add_q{{ test.id }}" class="text-white btn btn-success">Добавить вопрос</a>
+            </div>
+            <div class="card-body">
+                {% for s in test.testitem_set.all %}
+                <div class="d-flex justify-content-between">
+                    <p>Вопрос: {{s.title}}</p>
+                    <form action="{% url 'test_question_delete' s.id %}" method="POST">
+                        {% csrf_token %}
+                        <input value="{{test.id}}" type="hidden" name="test_id">
+                        <input value="Удалить" type="submit" class="btn btn-danger">
+                    </form>
+                </div>
+                <hr class="hr">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="add_q{{ test.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Создать Тест</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'test_add_queston' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="test_id" value="{{ test.id }}">
+                    <input required class="w-100 p-2 mb-2" type="text" placeholder="Название" name="title">
+                    <button type="submit" class="text-white btn btn-block btn-success btn-primary mb-3">Добавить
+                    </button>
+                </form>
+                <button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

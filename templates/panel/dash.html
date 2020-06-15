@@ -176,11 +176,11 @@
                         </li>
                         <hr class="hr bg-secondary">
                         <li class=""><a
-                                class="text-white {% if request.path == '/panel/groups/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                class="text-white {% if request.path == '/admin/groups/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
                                 href="{% url 'groups' %}"><i class="fas fa-users"></i> Группы</a>
                         </li>
                         <li class=""><a
-                                class="text-white {% if request.path == '/panel/students/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                class="text-white {% if request.path == '/admin/students/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
                                 href="{% url 'students' %}"><i class="fas fa-user-graduate"></i> Студенты</a></li>
                         <li class=""><a
                                 class="text-white {% if request.path == '/admin/hws/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
@@ -189,6 +189,15 @@
                         <li class=""><a
                                 class="text-white {% if request.path == '/admin/clients/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
                                 href="{% url 'clients' %}"><i class="far fa-address-card"></i> Обратный звонок</a>
+                        </li>
+                        <hr class="hr bg-secondary">
+                        <li class=""><a
+                                class="text-white {% if request.path == '/admin/test/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href="{% url 'test' %}"><i class="fas fa-stream"></i> Тест добавить</a>
+                        </li>
+                        <li class=""><a
+                                class="text-white {% if request.path == '/admin/test_result/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
+                                href="{% url 'test_result' %}"><i class="fas fa-vote-yea"></i> Тест результаты</a>
                         </li>
                         <hr class="hr bg-secondary">
                         <li class=""><a class="text-white btn btn-outline-secondary btn-block"

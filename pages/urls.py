@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/test/<int:id>', views.dashboard_test, name='dashboard_test'),
+    path('dashboard/anwer/', views.dashboard_answer, name='dashboard_answer'),
 
     # Functions
     path('delete_self_hws/<int:id>/', views.delete_self_hws, name="delete_self_hws"),

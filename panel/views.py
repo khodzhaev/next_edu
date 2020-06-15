@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse, Http404
-from .models import Group, Student, Homework, Lesson
+from .models import Group, Student, Homework, Lesson, Test, TestStudent, TestItem
 from pages.models import Clients
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
@@ -209,6 +209,7 @@ def hws_delete(requests, id):
     messages.error(requests, 'Домашнее задание не удалено')
     return redirect('hws')
 
+
 def hws_complete(requests, id):
     h = Homework.objects.get(id=id)
     if h.processed == True:
@@ -217,6 +218,122 @@ def hws_complete(requests, id):
         h.processed = True
     h.save()
     return redirect('hws')
+
+
+##########################################################################
+# Test
+##########################################################################
+def test(requests):
+    tests = Test.objects.all()
+    groups = Group.objects.all()
+    context = {
+        'tests': tests,
+        'groups': groups
+    }
+    return render(requests, 'panel/test.html', context)
+
+
+def test_add(requests):
+    if requests.method == 'POST':
+        Test.objects.create(
+            title=requests.POST['title'],
+            group=Group.objects.get(title=requests.POST['group'])
+        )
+        messages.success(requests, 'Тест создан')
+        return redirect('test')
+    messages.error(requests, 'Тест не создан')
+    return redirect('test')
+
+
+def test_edit(requests, id):
+    if requests.method == 'POST':
+        t = Test.objects.get(id=id)
+        t.title = requests.POST['title']
+        t.group = Group.objects.get(title=requests.POST['group'])
+        if 'avaible' in requests.POST:
+            t.avaible = True
+        else:
+            t.avaible = False
+        t.save()
+        messages.success(requests, 'Тест изменен')
+        return redirect('test')
+    messages.error(requests, 'Тест не изменен')
+    return redirect('test')
+
+
+def test_delete(requests, id):
+    if requests.method == 'POST':
+        t = Test.objects.get(id=id)
+        t.delete()
+        messages.success(requests, 'Тест удален')
+        return redirect('test')
+    messages.error(requests, 'Тест не удален')
+    return redirect('test')
+
+
+def test_detail(requests, id):
+    test = Test.objects.get(id=id)
+    context = {
+        'test': test,
+    }
+    return render(requests, 'panel/test_detail.html', context)
+
+
+def test_add_queston(requests):
+    if requests.method == 'POST':
+        ti = TestItem.objects.filter(test=Test.objects.get(id=requests.POST['test_id']))
+
+        page = requests.POST['test_id']
+        c = ti.count()
+        TestItem.objects.create(
+            title=requests.POST['title'],
+            test=Test.objects.get(id=requests.POST['test_id']),
+            count=(c + 1),
+        )
+        messages.success(requests, 'Создан вопрос')
+        return redirect('/admin/test_detail/{}/'.format(page))
+    messages.error(requests, 'Вопрос не создана')
+    return redirect('/admin/test_detail/{}/'.format(page))
+
+
+def test_question_delete(requests, id):
+    if requests.method == 'POST':
+        page = requests.POST['test_id']
+        t = TestItem.objects.get(id=id)
+        t.delete()
+        messages.success(requests, 'Удален вопрос')
+        return redirect('/admin/test_detail/{}/'.format(page))
+    messages.error(requests, 'Не удален вопрос')
+    return redirect('/admin/test_detail/{}/'.format(page))
+
+
+def test_result(requests):
+    tests = Test.objects.all()
+    context = {
+        'tests': tests
+    }
+    return render(requests, 'panel/test_result.html', context)
+
+
+def test_result_student(requests, id):
+    test = TestStudent.objects.get(id=id)
+    context = {
+        'test': test
+    }
+    return render(requests, 'panel/test_result_student.html', context)
+
+
+def test_result_processed(requests, id):
+    test = TestStudent.objects.get(id=id)
+    if requests.method == 'POST':
+        test.point = requests.POST['point']
+        test.processed = requests.POST['processed']
+        test.save()
+        messages.success(requests, 'Тест студента изменена')
+        return redirect('test_result')
+    messages.error(requests, 'Тест студента не изменена')
+    return redirect('test_result')
+
 
 ##########################################################################
 # Download function

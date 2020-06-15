@@ -23,6 +23,13 @@
         .card-header a:focus {
             outline: none;
         }
+
+        @media (max-width: 990px) {
+            .nav-item {
+                margin-bottom: 7px;
+            }
+
+        }
     </style>
 </head>
 
@@ -51,14 +58,15 @@
 <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 <script src="{% static 'js/fontawesome.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+
 {% if anchor %}
 
 <script type='text/javascript'>
     $(document).ready(function () {
-        window.location = '#{{ anchor }}'
+        window.location = '#{{ anchor }}';
+
     });
 </script>
-
 {% endif %}
 </body>
 

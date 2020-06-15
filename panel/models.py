@@ -77,3 +77,58 @@ class Homework(models.Model):
         verbose_name_plural = 'Домашки'
         ordering = ('-date_pub',)
 
+
+class Test(models.Model):
+    title = models.CharField(max_length=255)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    avaible = models.BooleanField(default=False)
+    date_pub = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    def datepublished(self):
+        return self.date_pub.strftime('%d.%m.%Y')
+
+    def get_questions_total(self):
+        q = self.testitem_set.all().count()
+        return q
+
+    class Meta:
+        verbose_name = 'Тест'
+        verbose_name_plural = 'Тесты'
+        ordering = ('-date_pub',)
+
+
+class TestStudent(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    point = models.CharField(max_length=255)
+    avaible = models.BooleanField(default=True)
+    processed = models.BooleanField(default=True)
+
+
+
+class TestItem(models.Model):
+    title = models.CharField(max_length=255)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    count = models.IntegerField()
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Тест вопрос'
+        verbose_name_plural = 'Тесты вопросы'
+
+
+class TestAnswer(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    teststudent = models.ForeignKey(TestStudent, on_delete=models.CASCADE)
+    question = models.CharField(max_length=255)
+    answer = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Тест ответы'
+        verbose_name_plural = 'Тесты ответы'
