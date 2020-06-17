@@ -60,19 +60,6 @@
     </div>
 </form>
 <script>
-    window.onbeforeunload = function (e) {
-        e = e || window.event;
-
-        // For IE and Firefox prior to version 4
-        if (e) {
-            e.returnValue = 'Sure?';
-        }
-
-        // For Safari
-        return 'Sure?';
-    };
-</script>
-<script>
     'use strict';
     let questions = document.querySelectorAll('.questions');
     let total_q = document.querySelectorAll('.total_q');
@@ -100,7 +87,7 @@
         )
     }
     for (let i = 0; i < questions.length; i++) {
-        document.getElementById('btn-b' + (i + 1) ).addEventListener('click', function () {
+        document.getElementById('btn-b' + (i + 1)).addEventListener('click', function () {
             questions[i].classList.add('hidden');
             questions[i - 1].classList.remove('hidden');
             btnSend.classList.add('hidden');
