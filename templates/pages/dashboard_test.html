@@ -26,6 +26,8 @@
         </nav>
     </div>
 </div>
+
+
 <form action="{% url 'dashboard_answer' %}" method="POST">
     {% csrf_token %}
     <input type="hidden" name="test_id" value="{{test.id}}">
@@ -39,6 +41,7 @@
                 <div class="col-6 d-flex justify-content-end">
                     <a id="btn-b{{t.count}}" class="btn btn-info py-2 mr-2">Назад</a>
                     <a id="btn-n{{t.count}}" class="btn btn-info py-2">Следующий</a>
+                    <button id="btn-s{{t.count}}" type="submit" class="btn btn-success py-2 hidden">Отправить</button>
                 </div>
             </div>
             <hr>
@@ -55,49 +58,39 @@
         </div>
     </section>
     {% endfor %}
-    <div class="container">
-        <button id="btn-s" type="submit" class="btn w-100 btn-success py-2 hidden">Отправить</button>
-    </div>
 </form>
 <script>
     'use strict';
-    let questions = document.querySelectorAll('.questions');
-    let total_q = document.querySelectorAll('.total_q');
-    let btnSend = document.getElementById("btn-s");
-    let index = 1
-    document.getElementById('btn-n' + questions.length).classList.add('disabled');
+    let blocks = document.querySelectorAll('.questions');
+    let quantity = document.querySelectorAll('.total_q');
+    document.getElementById('btn-b1').classList.add('disabled')
+    let c = 1
 
-    for (let i = 1; i < questions.length; i++) {
-        if (i === 1) {
-            document.getElementById('btn-b1').classList.add('disabled');
-        }
-        questions[i].classList.add('hidden');
-
-        document.getElementById('btn-n' + i).addEventListener('click', function () {
-                questions[i - 1].classList.add('hidden');
-                questions[i].classList.remove('hidden');
-                index++;
-                console.log(index)
-                if (index === questions.length) {
-                    btnSend.classList.remove('hidden');
-                } else {
-                    btnSend.classList.add('hidden');
-                }
+    for (let i = 0; i < blocks.length; i++) {
+        blocks[i].classList.add('hidden');
+        quantity[i].innerHTML = blocks.length;
+    }
+    blocks[0].classList.remove('hidden');
+    for (let i = 0; i < blocks.length; i++) {
+        document.getElementById('btn-n' + c).addEventListener('click', function () {
+            blocks[i].classList.add('hidden');
+            blocks[i + 1].classList.remove('hidden');
+            if (i === blocks.length - 2){
+                document.getElementById('btn-n' + (c-1)).classList.add('hidden');
+                document.getElementById('btn-s' + (c-1)).classList.remove('hidden');
             }
-        )
-    }
-    for (let i = 0; i < questions.length; i++) {
-        document.getElementById('btn-b' + (i + 1)).addEventListener('click', function () {
-            questions[i].classList.add('hidden');
-            questions[i - 1].classList.remove('hidden');
-            btnSend.classList.add('hidden');
-            index--;
         })
+        document.getElementById('btn-b' + c).addEventListener('click', function () {
+            blocks[i].classList.add('hidden');
+            blocks[i - 1].classList.remove('hidden');
+            console.log('jivoy')
+        })
+
+        c = c + 1;
+
     }
 
-    for (let i = 0; i < questions.length + 1; i++) {
-        total_q[i].innerHTML = `${total_q.length}`;
-    }
+
 
 </script>
 {% endblock %}

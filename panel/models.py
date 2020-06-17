@@ -105,8 +105,16 @@ class TestStudent(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     point = models.CharField(max_length=255)
     avaible = models.BooleanField(default=True)
-    processed = models.BooleanField(default=True)
+    processed = models.BooleanField(default=False)
+    date_pub = models.DateTimeField(auto_now_add=True)
 
+    def datepublished(self):
+        return self.date_pub.strftime('%d.%m.%Y')
+
+    class Meta:
+        verbose_name = 'Тест Студент'
+        verbose_name_plural = 'Тесты Студенты'
+        ordering = ('-date_pub',)
 
 
 class TestItem(models.Model):

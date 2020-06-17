@@ -19,6 +19,7 @@
                     <div class="table-responsive-sm">
                         <table class="table table-striped table-sm">
                             <tr>
+                                <th>Дата</th>
                                 <th>Название</th>
                                 <th>Группа</th>
                                 <th>Подробнее</th>
@@ -26,6 +27,7 @@
                             </tr>
                             {% for s in t.teststudent_set.all %}
                             <tr>
+                                <td>{{ s.datepublished }}</td>
                                 <td>{{ s.student.fname }}</td>
                                 <td>{{ s.student.group.title }}</td>
                                 <td><a href="{% url 'test_result_student' s.id %}" class="btn btn-warning btn-sm"> Перейти</a></td>

@@ -68,10 +68,10 @@ def dashboard_answer(requests):
             )
             count += 1
 
-            messages.success(request, 'Тест отправлен')
-            return redirect('dashboard')
-        messages.error(request, 'Тест не отправлен')
+        messages.success(requests, 'Тест отправлен')
         return redirect('dashboard')
+    messages.error(requests, 'Тест не отправлен')
+    return redirect('dashboard')
 
 
 @login_required

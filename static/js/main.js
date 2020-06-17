@@ -1,3 +1,5 @@
+
+
 var elems = document.getElementsByClassName('skill-img');
 var divs = document.getElementsByClassName('skill-bl');
 for(let z=0;z<divs.length;z++){divs[z].style.display = "none";};
@@ -49,3 +51,5 @@ $(document).ready(function() {
         $("#act-b-2b").hide(); // отображаем, или скрываем элемент
     });
 });
+
+
