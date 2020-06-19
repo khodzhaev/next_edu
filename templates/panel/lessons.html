@@ -29,7 +29,6 @@
                             <th>Дата</th>
                             <th>Название</th>
                             <th>Группа</th>
-                            <th class="d-flex justify-content-end">Изменить</th>
                             <th>Удалить</th>
                         </tr>
                         {% for l in lessons %}
@@ -37,10 +36,6 @@
                             <td>{{ l.date_pub }}</td>
                             <td>{{ l.title }}</td>
                             <td>{{ l.group.title }}</td>
-                            <td class="d-flex justify-content-end"><a data-toggle="modal"
-                                                                      data-target="#students_edit_{{ s.id }}"
-                                                                      class="btn btn-warning"> Изменить</a>
-                            </td>
                             <td>
                                 <form action="{% url 'lessons_delete' l.id %}" method="POST">
                                     {% csrf_token %}
