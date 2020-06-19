@@ -18,14 +18,14 @@ def lastname_admin_check(user):
 @login_required(login_url='index')
 @user_passes_test(lastname_admin_check)
 def panel(request):
-    context = {
-    }
-    return render(request, 'panel/panel.html', context)
+    return redirect('groups')
 
 
 ##########################################################################
 # Groups
 ##########################################################################
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def groups(requests):
     groups = Group.objects.all()
     context = {
@@ -34,6 +34,8 @@ def groups(requests):
     return render(requests, 'panel/groups.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def groups_add(requests):
     if requests.method == 'POST':
         Group.objects.create(
@@ -46,6 +48,8 @@ def groups_add(requests):
     return redirect('groups')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def groups_edit(requests, id):
     if requests.method == 'POST':
         g = Group.objects.get(id=id)
@@ -59,6 +63,8 @@ def groups_edit(requests, id):
     return redirect('groups')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def groups_delete(requests, id):
     if requests.method == 'POST':
         g = Group.objects.get(id=id)
@@ -72,6 +78,8 @@ def groups_delete(requests, id):
 ##########################################################################
 # Students
 ##########################################################################
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def students(requests):
     students = Student.objects.all()
     groups = Group.objects.all()
@@ -82,6 +90,8 @@ def students(requests):
     return render(requests, 'panel/students.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def students_add(requests):
     if requests.method == 'POST':
         u = User.objects.create_user(
@@ -99,6 +109,8 @@ def students_add(requests):
     return redirect('students')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def students_edit(requests, id):
     if requests.method == 'POST':
         u = User.objects.get(id=id)
@@ -119,6 +131,8 @@ def students_edit(requests, id):
     return redirect('students')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def students_delete(requests, id):
     if requests.method == 'POST':
         u = User.objects.get(id=id)
@@ -132,6 +146,8 @@ def students_delete(requests, id):
 ##########################################################################
 # Lessons
 ##########################################################################
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def lessons(requests):
     lessons = Lesson.objects.all()
     groups = Group.objects.all()
@@ -142,6 +158,8 @@ def lessons(requests):
     return render(requests, 'panel/lessons.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def lessons_add(requests):
     if requests.method == 'POST' and requests.FILES['file']:
         Lesson.objects.create(
@@ -156,6 +174,8 @@ def lessons_add(requests):
     return redirect('lessons')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def lessons_delete(requests, id):
     if requests.method == 'POST':
         l = Lesson.objects.get(id=id)
@@ -170,6 +190,8 @@ def lessons_delete(requests, id):
 ##########################################################################
 # Clients
 ##########################################################################
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def clients(requests):
     clients = Clients.objects.all()
     context = {
@@ -178,6 +200,8 @@ def clients(requests):
     return render(requests, 'panel/clients.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def clients_complete(requests, id):
     c = Clients.objects.get(id=id)
     if c.processed == True:
@@ -191,6 +215,8 @@ def clients_complete(requests, id):
 ##########################################################################
 # HWs
 ##########################################################################
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def hws(requests):
     hws = Homework.objects.all()
     context = {
@@ -199,6 +225,8 @@ def hws(requests):
     return render(requests, 'panel/hws.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def hws_delete(requests, id):
     if requests.method == 'POST':
         h = Homework.objects.get(id=id)
@@ -210,6 +238,8 @@ def hws_delete(requests, id):
     return redirect('hws')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def hws_complete(requests, id):
     h = Homework.objects.get(id=id)
     if h.processed == True:
@@ -223,6 +253,8 @@ def hws_complete(requests, id):
 ##########################################################################
 # Test
 ##########################################################################
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test(requests):
     tests = Test.objects.all()
     groups = Group.objects.all()
@@ -233,6 +265,8 @@ def test(requests):
     return render(requests, 'panel/test.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_add(requests):
     if requests.method == 'POST':
         Test.objects.create(
@@ -245,6 +279,8 @@ def test_add(requests):
     return redirect('test')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_edit(requests, id):
     if requests.method == 'POST':
         t = Test.objects.get(id=id)
@@ -261,6 +297,8 @@ def test_edit(requests, id):
     return redirect('test')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_delete(requests, id):
     if requests.method == 'POST':
         t = Test.objects.get(id=id)
@@ -271,6 +309,8 @@ def test_delete(requests, id):
     return redirect('test')
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_detail(requests, id):
     test = Test.objects.get(id=id)
     context = {
@@ -279,6 +319,8 @@ def test_detail(requests, id):
     return render(requests, 'panel/test_detail.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_add_queston(requests):
     if requests.method == 'POST':
         ti = TestItem.objects.filter(test=Test.objects.get(id=requests.POST['test_id']))
@@ -296,6 +338,8 @@ def test_add_queston(requests):
     return redirect('/admin/test_detail/{}/'.format(page))
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_question_delete(requests, id):
     if requests.method == 'POST':
         page = requests.POST['test_id']
@@ -307,6 +351,8 @@ def test_question_delete(requests, id):
     return redirect('/admin/test_detail/{}/'.format(page))
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_result(requests):
     tests = Test.objects.all()
     context = {
@@ -315,6 +361,8 @@ def test_result(requests):
     return render(requests, 'panel/test_result.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_result_student(requests, id):
     test = TestStudent.objects.get(id=id)
     context = {
@@ -323,6 +371,8 @@ def test_result_student(requests, id):
     return render(requests, 'panel/test_result_student.html', context)
 
 
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
 def test_result_processed(requests, id):
     test = TestStudent.objects.get(id=id)
     if requests.method == 'POST':

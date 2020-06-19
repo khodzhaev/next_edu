@@ -44,7 +44,7 @@
                             <td>
                                 <form action="{% url 'lessons_delete' l.id %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit" class="disabled s_delete btn btn-danger">Удалить</button>
+                                    <button type="submit" disabled class="s_delete btn btn-danger">Удалить</button>
                                 </form>
                             </td>
                         </tr>
@@ -102,11 +102,11 @@
         let st = document.querySelectorAll('.s_delete');
         if (sd.checked == true) {
             for (let i = 0; i <= st.length; i++) {
-                st[i].classList.remove('disabled');
+                st[i].disabled = false;
             }
         } else {
             for (let i = 0; i <= st.length; i++) {
-                st[i].classList.add('disabled');
+                st[i].disabled = true;
             }
         }
     }

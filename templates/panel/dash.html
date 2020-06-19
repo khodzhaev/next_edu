@@ -120,12 +120,20 @@
 
             #navigator {
                 display: none;
+                height: 100%;
+                width: 100%;
             }
 
             #navigator > div {
                 position: absolute;
                 z-index: 2;
                 width: 100%;
+
+            }
+
+            .nav-item-block {
+                background-color: #18183b;
+
             }
 
             .menu-bar-list {
@@ -164,12 +172,13 @@
                     <hr class="bg-white">
                     <div id='close-btn'><i class="far fa-times-circle"></i></div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 nav-item-block">
                     <ul class="list-menu pt-3">
-
+                        <!--
                         <li class=""><a
                                 class="text-white {% if request.path == '/admin/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
-                                href=""><i class="fas fa-university"></i> Главная</a></li>
+                                href="{% url 'panel' %}"><i class="fas fa-university"></i> Главная</a></li>
+                         -->
                         <li class=""><a
                                 class="text-white {% if request.path == '/admin/lessons/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
                                 href="{% url 'lessons' %}"><i class="fas fa-file-upload"></i> Загрузить урок</a>
@@ -190,6 +199,7 @@
                                 class="text-white {% if request.path == '/admin/clients/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
                                 href="{% url 'clients' %}"><i class="far fa-address-card"></i> Обратный звонок</a>
                         </li>
+                        <!--
                         <hr class="hr bg-secondary">
                         <li class=""><a
                                 class="text-white {% if request.path == '/admin/test/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
@@ -199,6 +209,7 @@
                                 class="text-white {% if request.path == '/admin/test_result/' %}btn btn-info btn-block{% else %}btn btn-outline-secondary btn-block{% endif %}"
                                 href="{% url 'test_result' %}"><i class="fas fa-vote-yea"></i> Тест результаты</a>
                         </li>
+                        -->
                         <hr class="hr bg-secondary">
                         <li class=""><a class="text-white btn btn-outline-secondary btn-block"
                                         href="{% url 'logout' %}"><i class="fas fa-door-open"></i> Выйти</a></li>
@@ -252,9 +263,20 @@
         crossorigin="anonymous"></script>
 <script src="{% static 'js/fontawesome.js' %}"></script>
 <script>
+    'use strict';
+    let mainIconBtn = document.getElementById('nav-toggle');
+    let closeBtn = document.getElementById('close-btn');
+
+    mainIconBtn.addEventListener('click', function () {
+        document.getElementById('navigator').style.display = 'block';
+    })
+    closeBtn.addEventListener('click', function () {
+        document.getElementById('navigator').style.display = 'none';
+    })
+
     function messageHide() {
-       var message = document.querySelector('#message');
-       message.style.display = 'none';
+        var message = document.querySelector('#message');
+        message.style.display = 'none';
     }
 
     setTimeout(messageHide, 3000);
