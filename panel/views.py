@@ -99,7 +99,7 @@ def students_add(requests):
             password=requests.POST['password'],
         )
         s = Student.objects.get(user=User.objects.get(id=u.id))
-        s.group = Group.objects.get(title=requests.POST['group'])
+        s.group = Group.objects.get(title=int(requests.POST['group']))
         s.fname = requests.POST['first_name']
         s.rating = 100
         s.save()
