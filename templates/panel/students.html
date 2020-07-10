@@ -48,8 +48,9 @@
                                                                       data-target="#students_edit_{{ s.id }}"
                                                                       class="btn btn-warning"> Изменить</a></td>
                             <td>
-                                <form action="{% url 'students_delete' s.user.id %}" method="POST">
+                                <form action="{% url 'students_delete' %}" method="POST">
                                     {% csrf_token %}
+                                    <input type="hidden" name="login" value="{{s.user.username}}">
                                     <button type="submit" disabled class="s_delete btn btn-danger">Удалить</button>
                                 </form>
                             </td>

@@ -98,8 +98,9 @@ def students_add(requests):
             username=requests.POST['username'],
             password=requests.POST['password'],
         )
+        group = requests.POST['group']
         s = Student.objects.get(user_id=User.objects.get(id=u.id))
-        s.group = Group.objects.get(title=requests.POST['group'])
+        s.group = Group.objects.get(title=group)
         s.fname = requests.POST['first_name']
         s.rating = 100
         s.save()
@@ -133,9 +134,9 @@ def students_edit(requests, id):
 
 @login_required(login_url='index')
 @user_passes_test(lastname_admin_check)
-def students_delete(requests, id):
+def students_delete(requests):
     if requests.method == 'POST':
-        u = User.objects.get(id=id)
+        u = User.objects.get(username=requests.POST['login'])
         u.delete()
         messages.success(requests, 'Студент удален')
         return redirect('students')
