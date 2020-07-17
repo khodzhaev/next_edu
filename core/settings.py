@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'panel.apps.PanelConfig',
     'pages.apps.PagesConfig',
+    'camera.apps.CameraConfig'
 ]
 
 MIDDLEWARE = [

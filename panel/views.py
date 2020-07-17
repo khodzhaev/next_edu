@@ -136,7 +136,7 @@ def students_edit(requests, id):
 @user_passes_test(lastname_admin_check)
 def students_delete(requests):
     if requests.method == 'POST':
-        u = User.objects.get(username=requests.POST['login'])
+        u = Student.objects.get(user = User.objects.get(username=requests.POST['login']))
         u.delete()
         messages.success(requests, 'Студент удален')
         return redirect('students')
