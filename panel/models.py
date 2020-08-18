@@ -140,3 +140,17 @@ class TestAnswer(models.Model):
     class Meta:
         verbose_name = 'Тест ответы'
         verbose_name_plural = 'Тесты ответы'
+
+
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    link = models.CharField(max_length=255)
+    lang = models.CharField(max_length=255)
+    pages = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'
+
+

@@ -105,11 +105,20 @@
 
                                     <tr>
                                         <th>Название</th>
-                                        <th>Язык</th>
                                         <th>Автор</th>
+                                        <th>Кол/во страниц</th>
+                                        <th>Язык</th>
                                         <th></th>
                                     </tr>
-                                    <h3>Скоро</h3>
+                                    {% for b in books %}
+                                    <tr>
+                                        <td>{{b.title}}</td>
+                                        <td>{{b.author}}</td>
+                                        <td>{{b.pages}}</td>
+                                        <td>{{b.lang}}</td>
+                                        <td><a href="{{b.link}}" class="btn btn-sm btn-secondary">Читать</a></td>
+                                    </tr>
+                                    {% endfor %}
                                 </table>
                             </div>
                         </div>

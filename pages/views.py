@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib import auth
 
 from .models import Clients
-from panel.models import Group, Lesson, Student, Homework, Test, TestAnswer, TestStudent, TestItem
+from panel.models import Group, Lesson, Student, Homework, Test, TestAnswer, TestStudent, TestItem, Book
 import os
 
 
@@ -18,10 +18,12 @@ def dashboard(requests):
     lessons = Lesson.objects.filter(group=requests.user.student.group)
     hws = Homework.objects.filter(student=Student.objects.get(user_id=requests.user.id))
     tests = Test.objects.filter(avaible=True, group=Group.objects.get(title=requests.user.student.group))
+    books = Book.objects.all()
     context = {
         'lessons': lessons,
         'hws': hws,
         'tests': tests,
+        'books': books,
     }
     return render(requests, 'pages/dash.html', context)
 

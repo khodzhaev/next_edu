@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse, Http404
-from .models import Group, Student, Homework, Lesson, Test, TestStudent, TestItem
+from .models import Group, Student, Homework, Lesson, Test, TestStudent, TestItem, Book
 from pages.models import Clients
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
@@ -22,7 +22,7 @@ def panel(requests):
     students = Student.objects.all()
     context = {
         'groups': groups.count(),
-        'students': students.count()
+        'students': students.count(),
     }
     return render(requests, 'panel/panel.html', context)
 
