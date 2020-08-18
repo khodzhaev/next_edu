@@ -17,8 +17,14 @@ def lastname_admin_check(user):
 
 @login_required(login_url='index')
 @user_passes_test(lastname_admin_check)
-def panel(request):
-    return redirect('groups')
+def panel(requests):
+    groups = Group.objects.all()
+    students = Student.objects.all()
+    context = {
+        'groups': groups.count(),
+        'students': students.count()
+    }
+    return render(requests, 'panel/panel.html', context)
 
 
 ##########################################################################
@@ -42,9 +48,7 @@ def groups_add(requests):
             title=requests.POST['title'],
             level=requests.POST['level'],
         )
-        messages.success(requests, 'Группа успешна создана')
         return redirect('groups')
-    messages.error(requests, 'Группа не создана')
     return redirect('groups')
 
 
@@ -57,9 +61,7 @@ def groups_edit(requests, id):
         g.level = requests.POST['level']
         g.completed = requests.POST['completed']
         g.save()
-        messages.success(requests, 'Группа успешна изменена')
         return redirect('groups')
-    messages.error(requests, 'Группа не изменена')
     return redirect('groups')
 
 
@@ -69,9 +71,7 @@ def groups_delete(requests, id):
     if requests.method == 'POST':
         g = Group.objects.get(id=id)
         g.delete()
-        messages.success(requests, 'Группа успешна удалена')
         return redirect('groups')
-    messages.error(requests, 'Группа не удалена')
     return redirect('groups')
 
 
@@ -104,9 +104,7 @@ def students_add(requests):
         s.fname = requests.POST['first_name']
         s.rating = 100
         s.save()
-        messages.success(requests, 'Студент создан')
         return redirect('students')
-    messages.error(requests, 'Студент не создан')
     return redirect('students')
 
 
@@ -120,15 +118,23 @@ def students_edit(requests, id):
         s.rating = requests.POST['rating']
         s.group = Group.objects.get(title=requests.POST['group'])
         u.username = requests.POST['username']
-        hasher = PBKDF2PasswordHasher()
-        u.password = hasher.encode(password=requests.POST['password'],
-                                   salt='salt',
-                                   iterations=50000)
         s.save()
         u.save()
-        messages.success(requests, 'Студент успешно изменен')
         return redirect('students')
-    messages.error(requests, 'Студент не изменен')
+    return redirect('students')
+
+
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
+def students_edit_password(requests, id):
+    if requests.method == 'POST':
+        u = User.objects.get(id=id)
+        password = requests.POST['password']
+        hasher = PBKDF2PasswordHasher()
+        password = hasher.encode(password=password, salt='salt', iterations=50000)
+        u.password = password
+        u.save()
+        return redirect('students')
     return redirect('students')
 
 
@@ -136,11 +142,9 @@ def students_edit(requests, id):
 @user_passes_test(lastname_admin_check)
 def students_delete(requests):
     if requests.method == 'POST':
-        u = Student.objects.get(user = User.objects.get(username=requests.POST['login']))
+        u = User.objects.get(username=requests.POST['login'])
         u.delete()
-        messages.success(requests, 'Студент удален')
         return redirect('students')
-    messages.error(requests, 'Студент не удален')
     return redirect('students')
 
 
@@ -169,9 +173,28 @@ def lessons_add(requests):
             video=requests.POST['video'],
             lesson=requests.FILES['file'],
         )
-        messages.success(requests, 'Урок создан')
         return redirect('lessons')
-    messages.error(requests, 'Урок не создан')
+    return redirect('lessons')
+
+
+@login_required(login_url='index')
+@user_passes_test(lastname_admin_check)
+def lessons_edit(requests, id):
+    if requests.method == 'POST' or requests.FILES['file']:
+        l = Lesson.objects.get(id=id)
+        l.title = requests.POST['title']
+        l.group = Group.objects.get(id=requests.POST['group'])
+        l.video = requests.POST['video']
+
+        try:
+            expath = l.lesson.path
+            l.lesson = requests.FILES['file']
+            os.remove(expath)
+        except:
+            pass
+
+        l.save()
+        return redirect('lessons')
     return redirect('lessons')
 
 
@@ -182,9 +205,7 @@ def lessons_delete(requests, id):
         l = Lesson.objects.get(id=id)
         os.system('rm {}'.format(l.lesson.path))
         l.delete()
-        messages.success(requests, 'Урок удален')
         return redirect('lessons')
-    messages.error(requests, 'Урок не удален')
     return redirect('lessons')
 
 
@@ -220,8 +241,10 @@ def clients_complete(requests, id):
 @user_passes_test(lastname_admin_check)
 def hws(requests):
     hws = Homework.objects.all()
+    groups = Group.objects.all()
     context = {
         'hws': hws,
+        'groups': groups,
     }
     return render(requests, 'panel/hws.html', context)
 
@@ -233,9 +256,7 @@ def hws_delete(requests, id):
         h = Homework.objects.get(id=id)
         os.system('rm {}'.format(h.upload.path))
         h.delete()
-        messages.success(requests, 'Домашнее задание удалено')
         return redirect('hws')
-    messages.error(requests, 'Домашнее задание не удалено')
     return redirect('hws')
 
 
@@ -249,141 +270,6 @@ def hws_complete(requests, id):
         h.processed = True
     h.save()
     return redirect('hws')
-
-
-##########################################################################
-# Test
-##########################################################################
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test(requests):
-    tests = Test.objects.all()
-    groups = Group.objects.all()
-    context = {
-        'tests': tests,
-        'groups': groups
-    }
-    return render(requests, 'panel/test.html', context)
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_add(requests):
-    if requests.method == 'POST':
-        Test.objects.create(
-            title=requests.POST['title'],
-            group=Group.objects.get(title=requests.POST['group'])
-        )
-        messages.success(requests, 'Тест создан')
-        return redirect('test')
-    messages.error(requests, 'Тест не создан')
-    return redirect('test')
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_edit(requests, id):
-    if requests.method == 'POST':
-        t = Test.objects.get(id=id)
-        t.title = requests.POST['title']
-        t.group = Group.objects.get(title=requests.POST['group'])
-        if 'avaible' in requests.POST:
-            t.avaible = True
-        else:
-            t.avaible = False
-        t.save()
-        messages.success(requests, 'Тест изменен')
-        return redirect('test')
-    messages.error(requests, 'Тест не изменен')
-    return redirect('test')
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_delete(requests, id):
-    if requests.method == 'POST':
-        t = Test.objects.get(id=id)
-        t.delete()
-        messages.success(requests, 'Тест удален')
-        return redirect('test')
-    messages.error(requests, 'Тест не удален')
-    return redirect('test')
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_detail(requests, id):
-    test = Test.objects.get(id=id)
-    context = {
-        'test': test,
-    }
-    return render(requests, 'panel/test_detail.html', context)
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_add_queston(requests):
-    if requests.method == 'POST':
-        ti = TestItem.objects.filter(test=Test.objects.get(id=requests.POST['test_id']))
-
-        page = requests.POST['test_id']
-        c = ti.count()
-        TestItem.objects.create(
-            title=requests.POST['title'],
-            test=Test.objects.get(id=requests.POST['test_id']),
-            count=(c + 1),
-        )
-        messages.success(requests, 'Создан вопрос')
-        return redirect('/admin/test_detail/{}/'.format(page))
-    messages.error(requests, 'Вопрос не создана')
-    return redirect('/admin/test_detail/{}/'.format(page))
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_question_delete(requests, id):
-    if requests.method == 'POST':
-        page = requests.POST['test_id']
-        t = TestItem.objects.get(id=id)
-        t.delete()
-        messages.success(requests, 'Удален вопрос')
-        return redirect('/admin/test_detail/{}/'.format(page))
-    messages.error(requests, 'Не удален вопрос')
-    return redirect('/admin/test_detail/{}/'.format(page))
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_result(requests):
-    tests = Test.objects.all()
-    context = {
-        'tests': tests
-    }
-    return render(requests, 'panel/test_result.html', context)
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_result_student(requests, id):
-    test = TestStudent.objects.get(id=id)
-    context = {
-        'test': test
-    }
-    return render(requests, 'panel/test_result_student.html', context)
-
-
-@login_required(login_url='index')
-@user_passes_test(lastname_admin_check)
-def test_result_processed(requests, id):
-    test = TestStudent.objects.get(id=id)
-    if requests.method == 'POST':
-        test.point = requests.POST['point']
-        test.processed = requests.POST['processed']
-        test.save()
-        messages.success(requests, 'Тест студента изменена')
-        return redirect('test_result')
-    messages.error(requests, 'Тест студента не изменена')
-    return redirect('test_result')
 
 
 ##########################################################################

@@ -1,0 +1,124 @@
+{% extends 'pages/pages_base.html' %}
+
+{% block content %}
+
+<div class="content-wrapper ">
+    <section class="content ">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 pt-3">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <div class="card-title">Прошедшие уроки</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Название</th>
+                                        <th>Скачать урок</th>
+                                        <th>Смотреть видео</th>
+                                    </tr>
+                                    {% for l in lessons %}
+                                    <tr>
+                                        <td>{{ l.datepublished }}</td>
+                                        <td>{{ l.title }}</td>
+                                        <td><a href="{% url 'download' l.id %}" class="btn btn-secondary btn-sm">Скачать
+                                            урок</a></td>
+                                        <td><a href="{{ l.video }}" target="_blank"
+                                               class="btn btn-info btn-sm"> Смотреть</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <div class="card-title">Тесты</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Название</th>
+                                        <th>Оценка</th>
+                                        <th></th>
+                                    </tr>
+                                    <h3>Скоро</h3>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <div class="card-title">История загруженных файлов</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Название</th>
+                                        <th>Статус</th>
+                                        <th>Удалить</th>
+                                    </tr>
+                                    {% for h in hws %}
+                                    <tr>
+                                        <td>{{ h.datepublished }}</td>
+                                        <td>{{ h.upload }}</td>
+                                        <td>
+                                            {% if h.processed == True %}
+                                                <span class="text-success">
+                                                    Проверенно
+                                                </span>
+                                            {% elif h.processed == False%}
+                                            <span class="text-warning">
+                                                    Ожидается
+                                                </span>
+                                            {% endif %}
+
+                                        </td>
+                                        <td><a href="{% url 'delete_self_hws' h.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <div class="card-title">Бесплатная электроная библеотека</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+
+                                    <tr>
+                                        <th>Название</th>
+                                        <th>Язык</th>
+                                        <th>Автор</th>
+                                        <th></th>
+                                    </tr>
+                                    <h3>Скоро</h3>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+{% endblock %}

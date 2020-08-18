@@ -23,7 +23,7 @@ def dashboard(requests):
         'hws': hws,
         'tests': tests,
     }
-    return render(requests, 'pages/dashboard.html', context)
+    return render(requests, 'pages/dash.html', context)
 
 
 @login_required(login_url='index')
