@@ -147,7 +147,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                Вы уверенный?
                 <form action="{% url 'groups_delete' g.id %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
