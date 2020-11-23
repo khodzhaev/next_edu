@@ -15,3 +15,7 @@ class Clients(models.Model):
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
         ordering = ('-date_pub',)
+
+
+class Start(models.Model):
+    title = models.CharField(max_length=200)

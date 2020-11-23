@@ -5,7 +5,9 @@
 
 <nav id="dashboard" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'index' %}"><img class="logo" src="{% static 'img/logo.png' %}" alt=""></a>
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img width="100px" class="logo" src="{% static 'img/logo.png' %}" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -110,7 +112,7 @@
         <div class="animated fadeInUp delay-1s row">
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <p class="text-pink text-uppercase font-weight-bold">Когда</p>
-                <p class="font-weight-bold fs-1-4">12 октябрь 2020</p>
+                <p class="font-weight-bold fs-1-4 text-danger">{{ start.title }}</p>
             </div>
             <div class="col-lg-3 col-md-6 col-sm-12">
                 <p class="text-pink text-uppercase font-weight-bold">Формат обучения</p>
@@ -207,7 +209,7 @@
                         <a class="p-1 text-white w-100" data-toggle="collapse" href="#c100" role="button"
                            aria-expanded="false"
                            aria-controls="collapseExample">
-                            Первый месяц <span class="badge badge-danger text-uppercase">html, css и photoshop</span>
+                            Первый месяц <span class="badge badge-danger text-uppercase">html, css (table, float, flex) и photoshop</span>
                         </a>
                     </div>
                     <div class="collapse" id="c100">
@@ -238,7 +240,7 @@
                            aria-expanded="false"
                            aria-controls="collapseExample">
                             Второй месяц <span
-                                class="badge badge-danger text-uppercase">Bootstrap и post production</span>
+                                class="badge badge-danger text-uppercase">ANIMations, GRID, Bootstrap и Опубликуем сайт</span>
                         </a>
                     </div>
                     <div class="collapse" id="c200">
@@ -270,7 +272,7 @@
                            aria-expanded="false"
                            aria-controls="collapseExample">
                             Третий месяц <span
-                                class="badge badge-danger text-uppercase">Javascript, Jquery и Linux</span>
+                                class="badge badge-danger text-uppercase">Javascript, DOM, FETCH API, Jquery</span>
                         </a>
                     </div>
                     <div class="collapse" id="c300">
@@ -286,12 +288,11 @@
                                 <li>Функции, объекты, Массивы и псевдомассивы</li>
                                 <li>Объектно Ориентированное Программирование (ООП), Получение элементов со страницы
                                 </li>
+                                <li>Работа с DOM</li>
                                 <li>Библеотека Jquery, что это, подключаем.ю</li>
                                 <li>Селекторы и действия</li>
                                 <li>Одинацатый макет пишем игру крестики</li>
                                 <li>Двенадцатый макет пишем игру музыкальный</li>
-                                <li>Что такое Линукс, устанавливаем ОС Линукс</li>
-                                <li>Рабочая среда, баш комманды</li>
                             </ul>
                         </div>
                     </div>
@@ -302,13 +303,14 @@
                         <a class="p-1 text-white w-100" data-toggle="collapse" href="#c400" role="button"
                            aria-expanded="false"
                            aria-controls="collapseExample">
-                            Четвертый месяц <span class="badge badge-danger text-uppercase">Python и Git</span>
+                            Четвертый месяц <span class="badge badge-danger text-uppercase">WORDPRESS, Python3, AIOGRAM (telegram bot) и Git</span>
                         </a>
                     </div>
                     <div class="collapse" id="c400">
                         <div class="card-body">
 
                             <ul class="programm-course text-uppercse">
+                                <li>Знакомство с WordPress</li>
                                 <li>Работа с терминалом линукс, работа с файлами, Пользователи и группы</li>
                                 <li>Сетевые комманды, скачивание и установка прогррам, помощь получение сертификата LPI
                                     Linux
@@ -318,6 +320,7 @@
                                 <li>Строки, цифры, все типы данных</li>
                                 <li>Библеотеки без них никак</li>
                                 <li>Циклы и классы</li>
+                                <li>Создаем боты</li>
                                 <li>Работа с файлами, практические задании</li>
                                 <li>Знакомство с Git, push and pull</li>
                             </ul>
@@ -331,7 +334,7 @@
                            aria-expanded="false"
                            aria-controls="collapseExample">
                             Пятый месяц <span
-                                class="badge badge-danger text-uppercase">Django, sql, ssh, nginx и наш сервер</span>
+                                class="badge badge-danger text-uppercase">linux, sql, Django, ssh, nginx и наш сервер</span>
                         </a>
                     </div>
                     <div class="collapse" id="c500">

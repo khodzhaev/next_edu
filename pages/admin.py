@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Clients
+from .models import Clients, Start
 
 
 class SettingAdmin(admin.ModelAdmin):
@@ -10,3 +10,4 @@ class SettingAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Clients, SettingAdmin)
+admin.site.register(Start)

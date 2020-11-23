@@ -3,14 +3,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib import auth
 
-from .models import Clients
+from .models import Clients, Start
 from panel.models import Group, Lesson, Student, Homework, Test, TestAnswer, TestStudent, TestItem, Book
 import os
 
 
 ########################################################
 def index(requests):
-    return render(requests, 'pages/index.html', {})
+    start = Start.objects.get(id=1)
+    return render(requests, 'pages/index.html', {'start': start})
 
 
 @login_required(login_url='index')
